@@ -1,0 +1,279 @@
+================================================================================
+REVIEWMAN - QUICK START INSTRUCTIONS
+================================================================================
+
+BASIC COMMANDS
+================================================================================
+
+1. Review a Single File
+   -----------------------
+   python3 reviewman/reviewman.py sample_code.py
+
+2. Review Current Directory (Recursively)
+   -----------------------------------------
+   python3 reviewman/reviewman.py . -r
+
+3. Review Specific Directory
+   ----------------------------
+   python3 reviewman/reviewman.py ./your-folder -r
+
+4. Generate HTML Report
+   ------------------------
+   python3 reviewman/reviewman.py sample_code.py -f html -o report.html
+
+5. Save Text Report to File
+   ---------------------------
+   python3 reviewman/reviewman.py . -r -o report.txt
+
+6. Generate JSON Report (for automation)
+   ----------------------------------------
+   python3 reviewman/reviewman.py . -r -f json -o report.json
+
+
+SELECTIVE CHECKS
+================================================================================
+
+7. Security Check Only
+   ----------------------
+   python3 reviewman/reviewman.py . -r --no-quality --no-performance
+
+8. Skip Security Checks
+   ------------------------
+   python3 reviewman/reviewman.py . -r --no-security
+
+9. Skip Performance Checks
+   ---------------------------
+   python3 reviewman/reviewman.py . -r --no-performance
+
+10. Skip Quality Checks
+    ----------------------
+    python3 reviewman/reviewman.py . -r --no-quality
+
+
+ADVANCED USAGE
+================================================================================
+
+11. Use Custom Configuration
+    --------------------------
+    python3 reviewman/reviewman.py . -r --config reviewman/config/default_config.json
+
+12. Review Without Recursion (Current Directory Only)
+    ---------------------------------------------------
+    python3 reviewman/reviewman.py .
+
+13. Get Help
+    ----------
+    python3 reviewman/reviewman.py --help
+
+
+PRACTICAL EXAMPLES
+================================================================================
+
+Example 1: Quick Security Audit
+---------------------------------
+python3 reviewman/reviewman.py . -r --no-quality --no-performance -o security_audit.txt
+
+Example 2: Full Code Review with HTML Report
+----------------------------------------------
+python3 reviewman/reviewman.py . -r -f html -o full_review.html
+
+Example 3: Review Specific Python File
+----------------------------------------
+python3 reviewman/reviewman.py myapp.py
+
+Example 4: Review Source Directory Only
+-----------------------------------------
+python3 reviewman/reviewman.py ./src -r -o src_review.txt
+
+Example 5: JSON Report for CI/CD Pipeline
+-------------------------------------------
+python3 reviewman/reviewman.py . -r -f json -o ci_report.json
+
+
+WORKFLOW SUGGESTIONS
+================================================================================
+
+Before Committing Code:
+------------------------
+python3 reviewman/reviewman.py . -r
+
+Before Deploying to Production:
+---------------------------------
+python3 reviewman/reviewman.py . -r -f html -o pre_deploy_review.html
+
+Daily Security Scan:
+---------------------
+python3 reviewman/reviewman.py . -r --no-quality --no-performance
+
+Weekly Full Review:
+--------------------
+python3 reviewman/reviewman.py . -r -f html -o weekly_review_$(date +%Y%m%d).html
+
+
+FILE LOCATIONS
+================================================================================
+
+Main Script:        reviewman/reviewman.py
+Configuration:      reviewman/config/default_config.json
+Documentation:      reviewman/README.md
+Sample Test File:   sample_code.py
+This File:          Instructions.txt
+
+
+UNDERSTANDING THE OUTPUT
+================================================================================
+
+Severity Levels:
+-----------------
+[!!!] CRITICAL   - Fix immediately (security risks, data exposure)
+[!!]  HIGH       - Fix soon (vulnerabilities, major issues)
+[!]   MEDIUM     - Should be addressed (important improvements)
+[-]   LOW        - Minor issues (style, small optimizations)
+[i]   INFO       - Informational (notes, suggestions)
+
+Categories:
+------------
+SECURITY         - Security vulnerabilities and risks
+PERFORMANCE      - Performance issues and optimizations
+QUALITY          - Code quality and style issues
+BEST_PRACTICES   - Coding best practices and standards
+
+
+COMMON ISSUES DETECTED
+================================================================================
+
+Security Issues:
+- Hardcoded passwords, API keys, secrets
+- SQL injection vulnerabilities
+- Command injection (eval, exec, os.system)
+- Weak cryptography (MD5)
+- Insecure random number generation
+
+Performance Issues:
+- Inefficient loops (range(len()))
+- String concatenation in loops
+- Global variables
+- Repeated API calls
+
+Quality Issues:
+- Lines exceeding length limits
+- Print statements (should use logging)
+- Trailing whitespace
+- Commented-out code
+- TODO/FIXME comments
+
+Best Practices:
+- Missing docstrings
+- Bare except clauses
+- Wildcard imports
+- Large files that should be split
+
+
+CUSTOMIZATION
+================================================================================
+
+Edit Configuration File:
+-------------------------
+nano reviewman/config/default_config.json
+
+Key Settings You Can Change:
+- max_line_length: Change line length limit
+- check_security: Enable/disable security checks
+- exclude_patterns: Add files/folders to ignore
+- severity_levels: Customize severity levels
+
+
+TIPS FOR BEST RESULTS
+================================================================================
+
+1. Run ReviewMan regularly during development
+2. Fix CRITICAL and HIGH severity issues immediately
+3. Use HTML format for better visualization
+4. Integrate into your CI/CD pipeline
+5. Customize config for your project needs
+6. Review findings with your team
+7. Keep exclude_patterns updated
+
+Pro Tip: Run security-only checks before every commit:
+       python3 reviewman/reviewman.py . -r --no-quality --no-performance
+
+
+TROUBLESHOOTING
+================================================================================
+
+Command Not Found?
+-------------------
+Make sure you're in the /home/default/projtest directory:
+cd /home/default/projtest
+
+Permission Denied?
+-------------------
+Make the script executable:
+chmod +x reviewman/reviewman.py
+
+No Issues Found?
+-----------------
+Great! Your code is clean. Try running on sample_code.py to test:
+python3 reviewman/reviewman.py sample_code.py
+
+Want More Details?
+-------------------
+Read the full documentation:
+cat reviewman/README.md
+
+
+QUICK REFERENCE
+================================================================================
+
+Shortest Commands:
+-------------------
+python3 reviewman/reviewman.py .                    # Review current dir
+python3 reviewman/reviewman.py . -r                 # Review recursively
+python3 reviewman/reviewman.py file.py              # Review one file
+python3 reviewman/reviewman.py . -r -o report.txt   # Save to file
+python3 reviewman/reviewman.py . -r -f html -o r.html  # HTML report
+
+
+FLAGS CHEAT SHEET
+================================================================================
+
+-r, --recursive          Review directories recursively
+-f, --format            Output format: text, json, html
+-o, --output            Save report to file
+-c, --config            Use custom configuration file
+--no-security           Skip security checks
+--no-performance        Skip performance checks
+--no-quality            Skip quality checks
+--help                  Show help message
+
+
+GETTING STARTED RIGHT NOW
+================================================================================
+
+Step 1: Navigate to project directory
+        cd /home/default/projtest
+
+Step 2: Try it on the sample file
+        python3 reviewman/reviewman.py sample_code.py
+
+Step 3: Generate an HTML report
+        python3 reviewman/reviewman.py sample_code.py -f html -o test.html
+
+Step 4: Review your entire project
+        python3 reviewman/reviewman.py . -r
+
+That's it! You're now using ReviewMan.
+
+
+NEED MORE HELP?
+================================================================================
+
+Full Documentation:  cat reviewman/README.md
+View This File:      cat Instructions.txt
+Configuration:       cat reviewman/config/default_config.json
+Project Guide:       cat guide.txt
+
+================================================================================
+Last Updated: 2025-10-29
+ReviewMan - Keep Your Code Secure, Performant, and High-Quality!
+================================================================================
