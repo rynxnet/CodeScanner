@@ -59,7 +59,7 @@ ReviewMan automatically scans your codebase to detect:
 
 ```bash
 # Clone the repository
-git clone https://github.com/rynxnet/ReviewMan.git
+git clone https://github.com/rynxnet/CodeScanner.git
 
 # Navigate to the directory
 cd ReviewMan
